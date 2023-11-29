@@ -1,7 +1,5 @@
-<%@ page import="data.ReceivingData" %>
 <%@ page import="java.util.List" %>
-<%@ page import="data.ReceivingData" %>
-<%--<%@ page contentType="text/html;charset=UTF-8"%>--%>
+<%@ page import="WebLab2.servlets.ReceivingData" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c2" %>
 
@@ -15,6 +13,7 @@
   <title></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="js/results.js"></script>
 </head>
 <body>

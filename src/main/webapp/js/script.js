@@ -6,8 +6,9 @@ let R_selector = $("#radius");
 function areaCheckGetRequest(data, redirectToResult) {
     $.ajax({
         type: "POST",
-        url: "controller",
+        url: "checkArea",
         async: false,
+        contentType: 'json/application',
         data: data,
         success: function (data) {
             console.log(
@@ -102,7 +103,6 @@ function showError(msg, delay) {
     }, delay);
 }
 
-console.log("aboba5");
 
 $(document).ready(function () {
     loadHistory();
@@ -142,14 +142,13 @@ $(document).ready(function () {
         }
     });
 
-    console.log("aboba3");
 
     $("svg.pic").on("click", function (event) {
         let clicked_points = [];
 
         console.log("aboba2");
 
-        if (R_sellector) {
+        if (R_selector) {
             const svgElement = $(this);
             const svgRect = svgElement[0].getBoundingClientRect();
 
@@ -163,7 +162,7 @@ $(document).ready(function () {
             const x = event.offsetX;
             const y = event.offsetY;
 
-            const R = R_sellector.val();
+            const R = R_selector.val();
 
             const point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
             point.setAttribute("cx", offsetX.toString());

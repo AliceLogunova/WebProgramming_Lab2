@@ -1,24 +1,22 @@
-package servlets;
+package WebLab2.servlets;
 
+import jakarta.servlet.annotation.WebServlet;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.context.request.RequestContextHolder;
 
-import data.ReceivingData;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-@WebServlet("checkArea")
+@WebServlet(name = "checkArea", value = "/checkArea")
 public class AreaCheckServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -38,18 +36,15 @@ public class AreaCheckServlet extends HttpServlet {
                 String executionTime = decimalFormat.format(execTime);
                 ReceivingData data = new ReceivingData(receiving, x, y, R, executionTime, time);
 
-                ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-                HttpSession session = attr.getRequest().getSession();
-//                HttpSession session = request.getSession(true);
+//                ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//                HttpSession session = attr.getRequest().getSession();
+                HttpSession session = request.getSession(true);
                 List<ReceivingData> sessionList = (List<ReceivingData>) session.getAttribute("sessionList");
                 if (sessionList == null) {
                     sessionList = new ArrayList<>();
                     session.setAttribute("sessionList", sessionList);
                 }
-                synchronized (sessionList) {
-                    sessionList.add(data);
-                }
-//                sessionList.add(data);
+                sessionList.add(data);
                 request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
             }
         } catch (Exception e) {

@@ -1,4 +1,5 @@
-package data;
+package WebLab2.servlets;
+
 import java.io.Serializable;
 
 public final class ReceivingData implements Serializable {
